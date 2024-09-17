@@ -3,13 +3,13 @@ const blogSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      // required: true,
     },
     descrition: {
       type: String,
-      required: true,
+      // required: true,
     },
-    imageUrl: String,
+    image: String,
     rating: String,
     tag: [{ type: String }],
     author: {
@@ -21,4 +21,4 @@ const blogSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-exports.User = mongoose.model("Blogs", blogSchema);
+exports.Blog = mongoose.model("Blogs", blogSchema);

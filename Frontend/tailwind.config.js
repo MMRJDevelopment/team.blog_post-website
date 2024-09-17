@@ -2,7 +2,15 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+      Mulish: ["Mulish", "sans-serif"],
+      Work: ["Work Sans", "sans-serif"],
+    },
+    extend: {
+      backgroundImage: {
+        bannrimg: "url('/public/bannerimg.jpg')",
+      },
+    },
   },
   plugins: [],
 };

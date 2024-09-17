@@ -4,9 +4,8 @@
   "description": "A Blog Website MERN Stack Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "nodemon index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "MMRJ_Development",
@@ -16,6 +15,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.6.1",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4"
   }
 }

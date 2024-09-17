@@ -1,21 +1,13 @@
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema(
   {
-    fastName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
     },
     phoneNumber: Number,
     password: String,
-    profileImgUrl: String,
+    profileImage: String,
     address: String,
     city: String,
     postCode: String,
@@ -41,4 +33,7 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-exports.User = mongoose.model("Users", userSchema);
+
+const User = mongoose.model("Users", userSchema);
+
+module.exports = User;
