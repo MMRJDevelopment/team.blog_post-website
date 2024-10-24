@@ -41,6 +41,7 @@ class blogController {
         .json({ message: "post is title already exists!", post: isPost });
     const image = req.file.filename; // Access the uploaded file
     try {
+      await dbConfig();
       const newBlog = new Blog({
         title,
         slug: createSlug,
@@ -67,6 +68,7 @@ class blogController {
     if (!id) return res.status(400).json({ message: "Prams id not found" });
 
     try {
+      await dbConfig();
       const isPost = await Blog.findOne({ _id: id });
       if (!isPost) return res.status(400).json({ message: "Post not found!" });
       return res.status(200).json(isPost);

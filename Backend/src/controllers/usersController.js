@@ -1,5 +1,6 @@
 const User = require("../models/users.Model");
 const bcrypt = require("bcrypt");
+const dbConfig = require("../config/dbConfig");
 
 class UserController {
   // Handle user login
@@ -12,6 +13,7 @@ class UserController {
     }
 
     try {
+      await dbConfig();
       const existingUser = await User.findOne({ email });
       if (!existingUser) {
         return res.status(404).json({ error: "Email not found" });
@@ -53,6 +55,7 @@ class UserController {
     }
 
     try {
+      await dbConfig();
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ error: `${email} is already taken!` });
