@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const userSchema = mongoose.Schema(
   {
+    name:{
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -19,10 +23,10 @@ const userSchema = mongoose.Schema(
       default: "users",
       enum: ["users", "admin"],
     },
-    // blog: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Blog",
-    // },
+    blog: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blog",
+    },
     emailVerified: {
       type: Boolean,
       default: false,

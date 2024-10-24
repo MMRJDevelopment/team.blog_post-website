@@ -8,7 +8,7 @@ import { ImTwitter } from "react-icons/im";
 
 const Footer = () => {
   return (
-    <div className="bg-[#252B3B] w-full ">
+    <div className="bg-[#252B3B] w-full " id={"contact"}>
       <Container className="flex items-start justify-between pt-[43px] pb-[55px]">
         <div className="space-y-3 ">
           <img src="team..png" alt="" className="pb-4" />

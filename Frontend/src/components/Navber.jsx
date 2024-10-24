@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "./layouts/Container";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const Navber = () => {
   const navigate = useNavigate();
@@ -31,17 +31,18 @@ const Navber = () => {
           <li onClick={() => handleNavigation("/blog")}>Blogs</li>
           <li>Services</li>
           <li>Contact</li>
-          <li>Log in</li>
+
+          <li onClick={() => handleNavigation("/login")}>Log in</li>
         </ul>
         <button
           className={`py-4 px-[22px] border-2 border-white text-white font-Mulish font-bold text-base rounded-lg ml-[30px] mt-2 ${
             window.location.pathname === "/"
               ? "text-white "
-              : " text-[#24538a] bg-[#4DA0FD]/40 border-[#5A4FF3] border-4"
+              : " text-[#0c1b2c] bg-[#4DA0FD] border-[#5A4FF3] border-4"
           }`}
           onClick={handleNavigate}
         >
-          Get Access
+          Create Blog
         </button>
       </div>
     </Container>

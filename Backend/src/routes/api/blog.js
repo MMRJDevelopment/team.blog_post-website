@@ -1,7 +1,6 @@
 const express = require("express");
 const blogController = require("../../controllers/blogController");
-const path = require("path"); 
-
+const path = require("path");
 
 const router = express.Router();
 const multer = require("multer");
@@ -20,9 +19,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
-router.post("/blog", upload.single("image"), blogController.store);   
-router.get("/blogs",blogController.index)
+router.post("/blog", upload.single("image"), blogController.store);
+router.get("/blogs", blogController.index);
+router.get("/blogs/:id", blogController.index_single);
 
 module.exports = router;

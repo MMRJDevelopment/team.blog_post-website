@@ -6,7 +6,7 @@ const RootLayout = () => {
   return <>
   <Navber/>
   <Outlet/>
-  <Footer/>
+  <Footer  />
   </>;
 };
 

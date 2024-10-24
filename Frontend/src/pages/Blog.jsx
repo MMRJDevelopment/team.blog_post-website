@@ -1,8 +1,22 @@
-import React from 'react'
-import Container from '../components/layouts/Container'
-import BlogCard from '../components/BlogCard';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Container from "../components/layouts/Container";
+import BlogCard from "../components/BlogCard";
 
 const Blog = () => {
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:9000/api/v1/blogs")
+      .then((res) => {
+        setBlogs(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <Container className="pt-[160px]">
       <div>
@@ -13,13 +27,13 @@ const Blog = () => {
           Our latest updates and blogs about managing your team
         </p>
       </div>
-      <div className='flex items-center  justify-between'>
-        <BlogCard />
-        <BlogCard />
-        <BlogCard />
+      <div className="flex items-center flex-wrap justify-between">
+        {blogs.map((item) => (
+          <BlogCard key={item._id} blog={item} />
+        ))}
       </div>
     </Container>
   );
-}
+};
 
-export default Blog
+export default Blog;

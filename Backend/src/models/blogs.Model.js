@@ -3,13 +3,21 @@ const blogSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      // required: true,
+      required: true,
+    },
+     slug: {
+      type: String,
+      require: true,
+      unique: true,
     },
     descrition: {
       type: String,
-      // required: true,
+      required: true,
     },
-    image: String,
+    image: {
+      type: String,
+      required: true,
+    },
     rating: String,
     tag: [{ type: String }],
     author: {

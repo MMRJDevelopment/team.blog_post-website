@@ -1,45 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import Container from "../components/layouts/Container";
+import { toast } from "sonner";
 
 const CreateBlog = () => {
+  const fileRef = useRef(null);
   const [image, setImage] = useState(null);
-  const [tags, setTags] = useState([]);
-  const [inputValue, setInputValue] = useState({
-    title: "",
-    descrition: "",
-  });
+  const [tag, setTags] = useState([]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevents page reload
 
-  const handleInputsValues = (e) => {
-    const { name, value } = e.target;
-    setInputValue({ ...inputValue, [name]: value });
-  };
-
-  const handlesubmit = async () => {
     const formData = new FormData();
-    formData.append("title", inputValue.title);
-    formData.append("description", inputValue.descrition);
-    formData.append("tag", tags);
     formData.append("image", image);
+    formData.append("title", title);
+    formData.append("descrition", description);
+    formData.append("tag", tag);
+    const userData = localStorage.getItem("user");
+    const isUser = userData ? JSON.parse(userData) : null;
+    console.log(isUser.name);
+
     try {
-      // Sending the form data to the backend
-      const response = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:9000/api/v1/blog",
-        formData, // Use the FormData object for the request
+        formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Ensure multipart/form-data header is set
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      console.log(response.data); // Handle the response
-      alert("Blog post created successfully!");
+      if (data) {
+        toast.success(data.message);
+      }
+
+      // Clear form fields after successful submission
+      setImage(null);
+      fileRef.current.value = null;
+      setTitle("");
+      setDescription("");
+      setTags([]);
     } catch (error) {
-      console.error("Error uploading blog post:", error);
+      const { data } = error.response;
+      if (data) {
+        toast.error(data.message);
+      }
     }
   };
 
@@ -47,85 +54,88 @@ const CreateBlog = () => {
     <Container>
       <div className="pt-[96px]">
         <h6 className="font-Mulish font-extrabold text-[48px] text-[#000000]">
-          Posts blog
+          Post a Blog
         </h6>
-        <p className="font-Mulish  font-semibold text-lg text-[#6D7D8B] pt-5 pb-[69px]">
+        <p className="font-Mulish font-semibold text-lg text-[#6D7D8B] pt-5 pb-10">
           Our latest updates and blogs about managing your posts
         </p>
       </div>
 
-      <form>
-        <div className=" space-y-6">
+      <form onSubmit={handleSubmit}>
+        <div className="space-y-6 border-2 border-gray-200 rounded-2xl py-10 pr-10 pl-5">
           <div>
             <label
-              for="Blog Title"
-              class="block mb-2 text-sm font-medium text-black"
+              htmlFor="Blog Title"
+              className="block mb-2 text-sm font-medium text-black"
             >
               Blog Title
             </label>
             <input
               type="text"
-              class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="..."
-              onChange={(e) => handleInputsValues(e)}
-              value={inputValue.title}
-              name="title"
+              id="title"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full h-[50px] px-4 py-2 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/20 outline-none"
+              placeholder="Enter your blog title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               required
             />
           </div>
 
           <div>
             <label
-              for="descrition"
-              class="block mb-2 text-sm font-medium text-black"
+              htmlFor="description"
+              className="block mb-2 text-sm font-medium text-black"
             >
-              Blog Descrition
+              Blog Description
             </label>
-            <input
-              type="text"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="..."
-              onChange={(e) => handleInputsValues(e)}
-              value={inputValue.descrition}
-              name="descrition"
+            <textarea
+              id="description"
+              className="w-full h-40 p-4 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500/30"
+              placeholder="Enter your blog description here..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               required
             />
           </div>
+
           <div>
-            <label for="tag" class="block mb-2 text-sm font-medium text black">
+            <label
+              htmlFor="tag"
+              className="block mb-2 text-sm font-medium text-black"
+            >
               Blog Tag
             </label>
             <input
+              placeholder="Enter your tags, separated by commas"
               type="text"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500/30 focus:border-blue-500/30 block w-full p-2.5"
+              value={tag.join(",")}
               onChange={(e) => setTags(e.target.value.split(","))}
             />
           </div>
         </div>
-      </form>
 
-      <div>
-        <label
-          class="block mb-2 text-sm font-medium text-black"
-          for="file_input"
-        >
-          Upload file
-        </label>
-        <input
-          class="block w-[200px] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-          type="file"
-          name="file"
-          value={inputValue.file}
-          onChange={handleFileChange}
-        />
-        <button
-          onClick={handlesubmit}
-          type="submit"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 mt-5 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
-      </div>
+        <div className="border-2 border-gray-200 rounded-2xl py-5 pl-5 my-5">
+          <label
+            className="block mb-2 text-sm font-bold text-black font-Mulish"
+            htmlFor="file_input"
+          >
+            Upload Image
+          </label>
+          <input
+            className="block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+            type="file"
+            ref={fileRef}
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 mt-5 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </Container>
   );
 };
