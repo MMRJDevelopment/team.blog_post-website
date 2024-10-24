@@ -1,11 +1,22 @@
 const { Blog } = require("../models/blogs.Model");
-const {user} = require("../models/users.Model")
+const { user } = require("../models/users.Model");
 const slugify = require("slugify");
 
 class blogController {
   static async index(req, res) {
-    const allBlogs = await Blog.find({});
-    res.send(allBlogs);
+    try {
+      const allBlogs = await Blog.find({});
+      if (!allBlogs)
+        return res.status(404).json({
+          message: "No blog post create yet",
+        });
+      return res.status(200).json(allBlogs);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: "Internal Server error",
+      });
+    }
   }
   static async store(req, res) {
     const { title, descrition, tag } = req.body;
@@ -38,7 +49,7 @@ class blogController {
         author: null,
       });
       await newBlog.save();
-      
+
       res
         .status(201)
         .json({ message: "Post created successfully", post: newBlog });

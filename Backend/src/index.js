@@ -13,11 +13,17 @@ app.use("/api", router);
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/", (req, res) => {
-  return res.status(200).json({ message: "Hello world!" });
+  return res
+    .status(200)
+    .json({
+      message: "Hello world!",
+      link: "https://team-blog-post-website-dlp4.vercel.app/api/v1/blogs",
+    });
 });
 
 app.listen(port, async () => {
   console.log(`Example app listening on port ${port}`);
   dbConfig();
 });
-export default app;
+
+module.exports = app;
