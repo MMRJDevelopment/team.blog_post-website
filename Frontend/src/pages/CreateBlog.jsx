@@ -24,7 +24,7 @@ const CreateBlog = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:9000/api/v1/blog",
+        "https://blog-team-backend.onrender.com/api/v1/blog",
         formData,
         {
           headers: {

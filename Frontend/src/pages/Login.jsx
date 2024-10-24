@@ -21,7 +21,7 @@ const Login = () => {
     try {
       setError(null); // Clear any previous errors
       const response = await axios.post(
-        "http://localhost:9000/api/v1/login",
+        "https://blog-team-backend.onrender.com/api/v1/login",
         inputValue
       );
 

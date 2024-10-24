@@ -17,7 +17,7 @@ const ShowBlog = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `http://localhost:9000/api/v1/blogs/${id}`
+          `https://blog-team-backend.onrender.com/api/v1/blogs/${id}`
         );
 
         if (response.status === 200) {

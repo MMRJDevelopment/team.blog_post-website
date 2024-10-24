@@ -30,7 +30,7 @@ const Signup = () => {
       }
 
       const res = await axios.post(
-        "http://localhost:9000/api/v1/users",
+        "https://blog-team-backend.onrender.com/api/v1/users",
         inputValue
       );
       console.log("Sign-up successful", res.data);

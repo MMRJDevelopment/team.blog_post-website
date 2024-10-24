@@ -8,7 +8,7 @@ const Blog = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:9000/api/v1/blogs")
+      .get("https://blog-team-backend.onrender.com/api/v1/blogs")
       .then((res) => {
         setBlogs(res.data);
       })
