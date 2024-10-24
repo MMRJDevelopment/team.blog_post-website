@@ -1,3 +1,4 @@
+const dbConfig = require("../config/dbConfig");
 const { Blog } = require("../models/blogs.Model");
 const { user } = require("../models/users.Model");
 const slugify = require("slugify");
@@ -5,6 +6,7 @@ const slugify = require("slugify");
 class blogController {
   static async index(req, res) {
     try {
+      await dbConfig();
       const allBlogs = await Blog.find({});
       if (!allBlogs)
         return res.status(404).json({
