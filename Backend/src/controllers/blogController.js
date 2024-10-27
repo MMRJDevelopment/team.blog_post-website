@@ -6,7 +6,10 @@ const slugify = require("slugify");
 class blogController {
   static async index(req, res) {
     try {
-      await dbConfig();
+      if (process.env.MODE !== "DEV") {
+        await dbConfig();
+      }
+
       const allBlogs = await Blog.find({});
       if (!allBlogs)
         return res.status(404).json({

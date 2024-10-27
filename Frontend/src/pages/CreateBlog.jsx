@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import axios from "axios";
 import Container from "../components/layouts/Container";
 import { toast } from "sonner";
+import { createRequest } from "../utils";
 
 const CreateBlog = () => {
   const fileRef = useRef(null);
@@ -23,8 +24,8 @@ const CreateBlog = () => {
     console.log(isUser.name);
 
     try {
-      const { data } = await axios.post(
-        "https://blog-team-backend.onrender.com/api/v1/blog",
+      const { data } = await createRequest.post(
+        "/blog",
         formData,
         {
           headers: {

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Container from "../components/layouts/Container";
 import BlogCard from "../components/BlogCard";
+import { createRequest } from "../utils";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://blog-team-backend.onrender.com/api/v1/blogs")
+    createRequest
+      .get("blogs")
       .then((res) => {
         setBlogs(res.data);
       })

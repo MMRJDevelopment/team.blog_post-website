@@ -21,7 +21,7 @@ const Login = () => {
     try {
       setError(null); // Clear any previous errors
       const response = await axios.post(
-        "https://blog-team-backend.onrender.com/api/v1/login",
+        "https://team-blog-post-website.vercel.app/api/v1/login",
         inputValue
       );
 
