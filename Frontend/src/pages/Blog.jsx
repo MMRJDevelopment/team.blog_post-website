@@ -8,14 +8,19 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    createRequest
-      .get("/blogs")
-      .then((res) => {
-        setBlogs(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async  function getAllBlogs(){
+      const data =await axios.get("https://blog-team-backend.onrender.com/api/v1/blogs")
+      setBlogs(data.data)  
+    }
+    // createRequest
+    //   .get("https://blog-team-backend.onrender.com/api/v1/blogs")
+    //   .then((res) => {
+    //     setBlogs(res.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    getAllBlogs()
   }, []);
 
   return (

@@ -49,7 +49,7 @@ class blogController {
         title,
         slug: createSlug,
         descrition,
-        image: `http://localhost:9000/uploads/${image}`,
+        image: `https://blog-team-backend.onrender.com/uploads/${image}`,
         rating: 0,
         tag,
         author: null,

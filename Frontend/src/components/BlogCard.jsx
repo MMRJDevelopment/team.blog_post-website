@@ -6,7 +6,7 @@ import moment from "moment";
 
 const BlogCard = ({ blog }) => {
 
-
+  console.log(blog);  
   return (
     <div className="bg-white w-[370px] h-[440px] relative rounded-2xl">
       <div onClick={() => setShow(true)}>

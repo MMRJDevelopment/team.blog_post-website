@@ -30,8 +30,8 @@ const Signup = () => {
         return;
       }
 
-      const res = await createRequest.post(
-        "https://team-blog-post-website.vercel.app/api/v1/users",
+      const res = await axios.post(
+        "https://blog-team-backend.onrender.com/api/v1/users",
         inputValue
       );
       console.log("Sign-up successful", res.data);

@@ -24,8 +24,8 @@ const CreateBlog = () => {
     console.log(isUser.name);
 
     try {
-      const { data } = await createRequest.post(
-        "/blog",
+      const { data } = await axios.post(
+        "https://blog-team-backend.onrender.com/api/v1/blog",
         formData,
         {
           headers: {

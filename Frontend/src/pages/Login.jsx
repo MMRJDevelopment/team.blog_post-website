@@ -21,7 +21,7 @@ const Login = () => {
   const handelLogin = async () => {
     try {
       setError(null); // Clear any previous errors
-      const response = await createRequest.post("/login", inputValue);
+      const response = await axios.post("https://blog-team-backend.onrender.com/api/v1/login", inputValue);
 
       // Assuming the response contains a token or user data
       const { token, user } = response.data;
