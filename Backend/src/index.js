@@ -2,12 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const dbConfig = require("./config/dbConfig");
 const router = require("./routes");
+const corsOption = require("./config/corsOption");
 
 const app = express();
 
 const port = 9000;
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOption));
 app.use("/api", router);
 
 const path = require("path");

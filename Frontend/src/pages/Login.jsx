@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { createRequest } from "../utils";
 
 const Login = () => {
   const [inputValue, setInputValue] = useState({
@@ -20,10 +21,7 @@ const Login = () => {
   const handelLogin = async () => {
     try {
       setError(null); // Clear any previous errors
-      const response = await axios.post(
-        "https://team-blog-post-website.vercel.app/api/v1/login",
-        inputValue
-      );
+      const response = await createRequest.post("/login", inputValue);
 
       // Assuming the response contains a token or user data
       const { token, user } = response.data;
@@ -92,7 +90,7 @@ const Login = () => {
           <a
             href="#"
             className="text-indigo-500 hover:text-indigo-600"
-            onClick={() => handleNavigation("/signup")}
+            onClick={() => navigate("/signup")}
           >
             Sign up
           </a>

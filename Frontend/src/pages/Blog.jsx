@@ -9,7 +9,7 @@ const Blog = () => {
 
   useEffect(() => {
     createRequest
-      .get("blogs")
+      .get("/blogs")
       .then((res) => {
         setBlogs(res.data);
       })

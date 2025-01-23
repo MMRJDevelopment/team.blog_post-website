@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { createRequest } from "../utils";
 
 const Signup = () => {
   const [inputValue, setInputValue] = useState({
@@ -29,7 +30,7 @@ const Signup = () => {
         return;
       }
 
-      const res = await axios.post(
+      const res = await createRequest.post(
         "https://team-blog-post-website.vercel.app/api/v1/users",
         inputValue
       );
